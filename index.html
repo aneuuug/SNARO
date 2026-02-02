@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNARO — Creamos espacio para lo que importa</title>
+    <link rel="icon" type="image/png" href="favicon.cropped.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 40px; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 100; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 35px; width: auto; }
+        nav a { font-size: 12px; font-weight: 400; color: #1d1d1f; text-decoration: none; opacity: 0.8; transition: opacity 0.4s ease; display: flex; align-items: center; }
+        nav a:hover { opacity: 1; }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px; background: #fff; }
+        .hero-content { max-width: 680px; }
+        .hero-label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: #999; margin-bottom: 16px; }
+        .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; color: #000; }
+        .hero p { font-size: 16px; font-weight: 400; color: #666; max-width: 400px; margin: 0 auto 40px; line-height: 1.7; }
+        .hero-cta { font-size: 10px; font-weight: 400; color: #000; text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 1px solid #000; margin-top: 120px; display: inline-block; transition: all 0.3s; }
+        .hero-cta:hover { opacity: 0.5; }
+
+        /* Sections */
+        section { padding: 120px 40px; }
+        .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 60px; text-align: center; }
+
+        /* Services */
+        .services { background: #fafafa; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; max-width: 1200px; margin: 0 auto; background: #e5e5e5; }
+        .service-card { padding: 48px 32px; background: #fafafa; transition: all 0.4s ease; }
+        .service-card:hover { background: #fff; transform: translateY(-2px); }
+        .service-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: #000; letter-spacing: -0.01em; }
+        .service-card p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
+
+        /* Process */
+        .process { background: #fff; padding: 140px 40px; }
+        .process-container { max-width: 600px; margin: 0 auto; }
+        .process-step { display: flex; gap: 40px; padding: 40px 0; border-bottom: 1px solid #eee; }
+        .process-step:last-child { border-bottom: none; }
+        .step-number { font-size: 12px; font-weight: 400; color: #666; flex-shrink: 0; padding-top: 4px; }
+        .step-content h3 { font-size: 14px; font-weight: 500; color: #000; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .step-content p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
+        .process-guarantee { text-align: center; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #000; margin-top: 60px; }
+
+        /* Contact */
+        .contact { background: #fafafa; text-align: center; padding: 140px 40px; }
+        .contact h2 { font-size: 14px; font-weight: 400; color: #000; margin-bottom: 48px; letter-spacing: 0.02em; }
+        .contact-container { max-width: 600px; margin: 0 auto; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+        .contact-form input, .contact-form textarea { font-family: inherit; font-size: 13px; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; background: transparent; color: #000; transition: border-color 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-bottom-color: #000; }
+        .contact-form input::placeholder, .contact-form textarea::placeholder { color: #888; font-weight: 300; }
+        .contact-form textarea { resize: none; min-height: 80px; }
+        .contact-form button { font-family: inherit; font-size: 10px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 14px 0; background: transparent; color: #000; border: none; border-bottom: 1px solid #000; cursor: pointer; transition: opacity 0.3s; margin-top: 20px; align-self: center; }
+        .contact-form button:hover { opacity: 0.5; }
+        .form-success { font-size: 14px; color: #000; text-align: center; padding: 40px 0; display: none; }
+        .contact-divider { font-size: 12px; color: #999; margin-bottom: 24px; }
+        .contact-links { display: flex; flex-direction: column; gap: 8px; }
+        .contact-link { font-size: 13px; font-weight: 400; color: #666; text-decoration: none; transition: color 0.4s ease; }
+        .contact-link:hover { color: #000; }
+
+        /* Footer */
+        footer { padding: 40px; background: #fafafa; text-align: center; border-top: 1px solid #eee; }
+        footer p { font-size: 11px; color: #999; letter-spacing: 0.04em; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav { gap: 28px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            section { padding: 80px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            nav { gap: 16px; }
+            nav a { font-size: 10px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .process-step { flex-direction: column; gap: 16px; }
+            .hero h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo"><img src="logo.png" alt="SNARO"></a>
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-label">SNARO</span>
+            <h1>Tecnología con resultados</h1>
+            <p>Impulsamos tu negocio</p>
+            <a href="#contacto" class="hero-cta">Descubre cómo</a>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <h2 class="section-title">Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Automatización</h3>
+                <p>Flujos operativos integrados. Pedidos, presupuestos y órdenes automáticos.</p>
+            </div>
+            <div class="service-card">
+                <h3>Business Intelligence</h3>
+                <p>Dashboards y modelos predictivos. KPIs en tiempo real.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gestión financiera</h3>
+                <p>Facturación, conciliación bancaria y control de gastos.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gestión documental</h3>
+                <p>OCR avanzado. Extracción y clasificación inteligente.</p>
+            </div>
+            <div class="service-card">
+                <h3>Soluciones digitales</h3>
+                <p>Transformación digital, apps y plataformas web.</p>
+            </div>
+            <div class="service-card">
+                <h3>Desarrollo a medida</h3>
+                <p>Si no existe, lo construimos para ti.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="proceso" class="process">
+        <h2 class="section-title">Proceso</h2>
+        <div class="process-container">
+            <div class="process-step">
+                <span class="step-number">01</span>
+                <div class="step-content">
+                    <h3>Auditoría gratuita</h3>
+                    <p>Analizamos tus operaciones y detectamos oportunidades de mejora.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <span class="step-number">02</span>
+                <div class="step-content">
+                    <h3>Implementación</h3>
+                    <p>Desarrollamos la solución a medida. No pagas hasta ver resultados.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <span class="step-number">03</span>
+                <div class="step-content">
+                    <h3>Suscripción</h3>
+                    <p>Cuota mensual solo si funciona. Cancela cuando quieras.</p>
+                </div>
+            </div>
+        </div>
+        <div class="process-guarantee">Resultados primero</div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <h2>Hablemos</h2>
+        <div class="contact-container">
+            <form id="contact-form" class="contact-form">
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <input type="email" name="email" placeholder="Tu email" required>
+                <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+            <div id="form-success" class="form-success">Mensaje enviado. Te contactaremos pronto.</div>
+
+            <div class="contact-divider">¿Prefieres hablar?</div>
+            <div class="contact-links">
+                <a href="tel:+34688815139" class="contact-link">+34 688 815 139</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 SNARO</p>
+    </footer>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = new FormData(form);
+            fetch('https://formspree.io/f/xaqjajyy', {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
