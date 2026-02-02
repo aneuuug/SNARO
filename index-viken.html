@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estampaciones Viken</title>
+    <meta name="description" content="Automatización e inteligencia artificial para la industria metalúrgica.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            color: #1d1d1f;
+            background: #fff;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 35px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 35px;
+            width: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo img:hover {
+            opacity: 0.7;
+        }
+
+        nav a {
+            font-size: 12px;
+            font-weight: 400;
+            color: #1d1d1f;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            background: #fafafa;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.1), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 50%, rgba(100, 116, 139, 0.08), transparent),
+                radial-gradient(ellipse 50% 40% at 20% 60%, rgba(59, 130, 246, 0.06), transparent);
+            animation: gradientMove 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.1) translateY(-20px);
+            }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(100, 116, 139, 0.1));
+            top: 5%;
+            left: -15%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.12), rgba(59, 130, 246, 0.08));
+            bottom: 10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(100, 116, 139, 0.08));
+            top: 50%;
+            left: 40%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, -30px) rotate(5deg);
+            }
+            50% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+            }
+            75% {
+                transform: translate(20px, 30px) rotate(3deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6e6e73;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 64px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+            text-align: center;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            font-weight: 400;
+            color: #6e6e73;
+            max-width: 550px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 17px;
+            font-weight: 400;
+            color: #3b82f6;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .hero-cta:hover {
+            text-decoration: underline;
+        }
+
+        .hero-cta svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Services */
+        .services {
+            padding: 100px 24px;
+            background: #fff;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .services-header h2 {
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .services-header p {
+            font-size: 17px;
+            color: #6e6e73;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 44px 36px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.12), 0 4px 20px rgba(100, 116, 139, 0.08);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(59, 130, 246, 0.18), 0 8px 30px rgba(100, 116, 139, 0.12);
+        }
+
+        .service-card h3 {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: #6e6e73;
+            line-height: 1.5;
+        }
+
+        /* Engineering Section */
+        .engineering {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+        }
+
+        .engineering-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .engineering-header h2 {
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .engineering-header p {
+            font-size: 17px;
+            color: #6e6e73;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .engineering-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .engineering-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 28px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .engineering-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+        }
+
+        .engineering-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .engineering-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .engineering-card p {
+            font-size: 14px;
+            color: #6e6e73;
+            line-height: 1.5;
+        }
+
+        /* Process */
+        .process {
+            padding: 100px 24px;
+            background: #fff;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .process-header h2 {
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .process-header p {
+            font-size: 17px;
+            color: #6e6e73;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            text-align: center;
+            max-width: 240px;
+        }
+
+        .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .process-step h3 {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: #6e6e73;
+            line-height: 1.5;
+        }
+
+        /* Guarantee */
+        .guarantee {
+            padding: 100px 24px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .guarantee-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .guarantee h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            line-height: 1.15;
+        }
+
+        .guarantee h2 span {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .guarantee p {
+            font-size: 17px;
+            color: #6e6e73;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 100px 24px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            padding: 100px 70px;
+            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .contact-glow-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, rgba(96, 165, 250, 0.25) 40%, transparent 70%);
+            top: -180px;
+            left: -150px;
+            animation: glow1 6s ease-in-out infinite;
+        }
+
+        .contact-glow-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(100, 116, 139, 0.4) 0%, rgba(148, 163, 184, 0.2) 50%, transparent 70%);
+            bottom: -150px;
+            right: -120px;
+            animation: glow2 8s ease-in-out infinite;
+        }
+
+        .contact-glow-3 {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 60%);
+            top: 15%;
+            right: 5%;
+            animation: glow3 7s ease-in-out infinite;
+        }
+
+        @keyframes glow1 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+            25% { transform: translate(50px, 30px) scale(1.2); opacity: 1; }
+            50% { transform: translate(-30px, 60px) scale(0.85); opacity: 0.8; }
+            75% { transform: translate(60px, -20px) scale(1.1); opacity: 0.95; }
+        }
+
+        @keyframes glow2 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+            33% { transform: translate(-60px, -40px) scale(1.25); opacity: 1; }
+            66% { transform: translate(30px, -30px) scale(0.8); opacity: 0.7; }
+        }
+
+        @keyframes glow3 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            50% { transform: translate(-50px, 50px) scale(1.3); opacity: 1; }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact h2 {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1d1d1f;
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-link {
+            font-size: 17px;
+            font-weight: 400;
+            color: #1d1d1f;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: #3b82f6;
+        }
+
+        .contact-location {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #6e6e73;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px 24px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #6e6e73;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                gap: 20px;
+                padding: 0 16px;
+            }
+
+            nav a:not(.logo) {
+                font-size: 11px;
+            }
+
+            .services-grid,
+            .engineering-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 50px;
+            }
+
+            .services-header h2,
+            .process-header h2,
+            .engineering-header h2,
+            .contact h2 {
+                font-size: 32px;
+            }
+
+            .orb-1, .orb-2, .orb-3 {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo"><img src="logo.png" alt="SNARO"></a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#ingenieria">Ingeniería</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="hero-content">
+            <span class="badge">Estampaciones Viken</span>
+            <h1>Automatización<br><span>para la industria metalúrgica</span></h1>
+            <p>Optimizamos procesos de estampación, troquelado y mecanizado. IA aplicada a producción, calidad y gestión. Sin coste inicial.</p>
+            <a href="#contacto" class="hero-cta">Empezar con auditoría gratuita <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+        </div>
+    </section>
+
+    <section class="services" id="soluciones">
+        <div class="services-header">
+            <h2>Soluciones para tu planta</h2>
+            <p>Automatización diseñada para operaciones de estampación, troquelado y fabricación de piezas metálicas</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Control de producción</h3>
+                <p>Monitorización en tiempo real de líneas de estampación y troquelado. Registro automático de tiempos de ciclo, paradas y rendimiento por máquina.</p>
+            </div>
+            <div class="service-card">
+                <h3>Trazabilidad y calidad</h3>
+                <p>Sistema completo de trazabilidad de lotes y piezas. Control de calidad automatizado, registro de no conformidades y reporting para auditorías.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gestión de pedidos</h3>
+                <p>Automatización del flujo de pedidos: desde la recepción hasta la generación de órdenes de fabricación, albaranes y facturación.</p>
+            </div>
+            <div class="service-card">
+                <h3>Dashboard de decisión</h3>
+                <p>Visibilidad total del negocio: KPIs de producción, calidad, entregas y costes en un solo panel. Alertas cuando algo requiere atención.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="engineering" id="ingenieria">
+        <div class="engineering-header">
+            <h2>Ingeniería y desarrollo</h2>
+            <p>Además de automatización, ofrecemos servicios de ingeniería para optimizar y digitalizar vuestros procesos industriales</p>
+        </div>
+        <div class="engineering-grid">
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3>Análisis de procesos</h3>
+                <p>Estudio detallado de vuestros procesos actuales para identificar cuellos de botella y oportunidades de mejora.</p>
+            </div>
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3>Integración de sistemas</h3>
+                <p>Conexión entre ERP, máquinas, sensores y sistemas de gestión. Todo comunicado y sincronizado.</p>
+            </div>
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <h3>Reporting avanzado</h3>
+                <p>Informes automáticos para dirección, calidad y clientes. Datos fiables sin trabajo manual.</p>
+            </div>
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                </div>
+                <h3>Desarrollo a medida</h3>
+                <p>Aplicaciones y herramientas específicas para vuestras necesidades. Si no existe, lo construimos.</p>
+            </div>
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3>Mantenimiento predictivo</h3>
+                <p>Anticipa fallos en prensas y troqueles antes de que ocurran. Reduce paradas no planificadas.</p>
+            </div>
+            <div class="engineering-card">
+                <div class="engineering-icon">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h3>Formación</h3>
+                <p>Capacitación para vuestro equipo en las nuevas herramientas. Soporte continuo hasta que sean autónomos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="proceso">
+        <div class="process-header">
+            <h2>Cómo trabajamos</h2>
+            <p>Sin riesgo. Sin coste inicial. Solo pagas si funciona.</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-icon">1</div>
+                <h3>Auditoría gratuita</h3>
+                <p>Analizamos vuestras operaciones y detectamos oportunidades. Sin compromiso.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">2</div>
+                <h3>Implementamos</h3>
+                <p>Desarrollamos e instalamos las automatizaciones. Resultados en semanas.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">3</div>
+                <h3>Suscripción</h3>
+                <p>Si os convence, pagáis una cuota mensual para mantenerlo activo.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">4</div>
+                <h3>Sin ataduras</h3>
+                <p>Si canceláis, retiramos las automatizaciones. Sin penalizaciones.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="guarantee">
+        <div class="guarantee-content">
+            <h2>No pagáis nada<br><span>hasta ver resultados.</span></h2>
+            <p>Primero demostramos el valor. Si no funciona, no os cuesta nada. Así de simple.</p>
+        </div>
+    </section>
+
+    <section class="contact" id="contacto">
+        <div class="contact-container">
+            <div class="contact-glow contact-glow-1"></div>
+            <div class="contact-glow contact-glow-2"></div>
+            <div class="contact-glow contact-glow-3"></div>
+            <div class="contact-content">
+                <h2>Nos vemos pronto</h2>
+                <p style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">Lunes 2 de febrero</p>
+                <p style="font-size: 18px; color: #6e6e73; margin-bottom: 32px;">09:00</p>
+                <div class="contact-links">
+                    <a href="tel:+34688815139" class="contact-link">+34 688 815 139</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 SNARO</p>
+    </footer>
+
+</body>
+</html>

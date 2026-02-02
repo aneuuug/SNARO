@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNARO — Logo Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .scene {
+            text-align: center;
+            position: relative;
+        }
+
+        /* Logo container */
+        .logo-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 50px;
+        }
+
+        /* Glow effect behind logo */
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.25) 0%, rgba(13, 148, 136, 0.1) 40%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: glowAppear 1.5s ease-out 0.5s forwards, glowPulse 4s ease-in-out 2s infinite;
+        }
+
+        @keyframes glowAppear {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        /* Orbiting particles */
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: orbitAppear 1s ease-out 1.5s forwards;
+        }
+
+        @keyframes orbitAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #2dd4bf;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #2dd4bf, 0 0 20px #14b8a6;
+        }
+
+        .particle:nth-child(1) {
+            top: 0; left: 50%;
+            animation: orbitSpin 8s linear 2s infinite;
+        }
+        .particle:nth-child(2) {
+            top: 50%; right: 0;
+            animation: orbitSpin 8s linear 2s infinite reverse;
+        }
+        .particle:nth-child(3) {
+            bottom: 0; left: 50%;
+            animation: orbitSpin 12s linear 2s infinite;
+        }
+
+        @keyframes orbitSpin {
+            0% { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
+        }
+
+        /* PNG Logo */
+        .logo-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            opacity: 0;
+            animation: logoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards,
+                       logoFloat 6s ease-in-out 2s infinite;
+            filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.4));
+        }
+
+        @keyframes logoReveal {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                filter: drop-shadow(0 0 0px rgba(45, 212, 191, 0));
+            }
+            60% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
+                filter: drop-shadow(0 0 40px rgba(45, 212, 191, 0.8));
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.4));
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.4));
+            }
+            25% {
+                transform: translate(-50%, -52%) scale(1.02) rotate(3deg);
+                filter: drop-shadow(0 0 30px rgba(45, 212, 191, 0.6));
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 25px rgba(45, 212, 191, 0.5));
+            }
+            75% {
+                transform: translate(-50%, -48%) scale(1.02) rotate(-3deg);
+                filter: drop-shadow(0 0 30px rgba(45, 212, 191, 0.6));
+            }
+        }
+
+        /* Brand text */
+        .brand {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: textReveal 0.8s ease-out 1.8s forwards;
+        }
+
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-name {
+            font-size: 42px;
+            font-weight: 200;
+            letter-spacing: 0.4em;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .tagline {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            color: #14b8a6;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: taglineReveal 0.8s ease-out 2.2s forwards;
+        }
+
+        @keyframes taglineReveal {
+            0% { opacity: 0; transform: translateY(20px); letter-spacing: 0.5em; }
+            100% { opacity: 1; transform: translateY(0); letter-spacing: 0.25em; }
+        }
+
+        /* Line decoration */
+        .line {
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #14b8a6, transparent);
+            margin: 30px auto;
+            animation: lineExpand 0.6s ease-out 2.4s forwards;
+        }
+
+        @keyframes lineExpand {
+            0% { width: 0; }
+            100% { width: 120px; }
+        }
+
+        /* Rings */
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .ring:nth-child(1) {
+            width: 240px;
+            height: 240px;
+            animation: ringPulse 3s ease-out 1.5s infinite;
+        }
+        .ring:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            animation: ringPulse 3s ease-out 1.8s infinite;
+        }
+        .ring:nth-child(3) {
+            width: 320px;
+            height: 320px;
+            animation: ringPulse 3s ease-out 2.1s infinite;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            animation: controlsAppear 0.5s ease-out 2.5s forwards;
+        }
+
+        @keyframes controlsAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .btn {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            border-color: #14b8a6;
+            color: #14b8a6;
+        }
+
+        .btn.primary {
+            background: #14b8a6;
+            border-color: #14b8a6;
+            color: #000;
+        }
+
+        .btn.primary:hover {
+            background: #0d9488;
+            border-color: #0d9488;
+        }
+
+        /* Background version */
+        body.white-bg {
+            background: #fff;
+        }
+
+        body.white-bg .brand-name {
+            color: #000;
+        }
+
+        body.white-bg .btn {
+            border-color: #ddd;
+            color: #666;
+        }
+
+        body.white-bg .logo-img {
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15));
+        }
+
+        /* Animation variants */
+        body.spin-mode .logo-img {
+            animation: logoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards,
+                       logoSpin 8s linear 2s infinite;
+        }
+
+        @keyframes logoSpin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        body.pulse-mode .logo-img {
+            animation: logoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards,
+                       logoPulse 2s ease-in-out 2s infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.4));
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                filter: drop-shadow(0 0 40px rgba(45, 212, 191, 0.8));
+            }
+        }
+
+        body.bounce-mode .logo-img {
+            animation: logoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards,
+                       logoBounce 1.5s cubic-bezier(0.36, 0, 0.66, -0.56) 2s infinite alternate;
+        }
+
+        @keyframes logoBounce {
+            0% { transform: translate(-50%, -50%) translateY(0); }
+            100% { transform: translate(-50%, -50%) translateY(-30px); }
+        }
+
+        /* Instruction */
+        .instruction {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: controlsAppear 0.5s ease-out 3s forwards;
+        }
+
+        /* Animation selector */
+        .animation-selector {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            animation: controlsAppear 0.5s ease-out 2.5s forwards;
+        }
+
+        .animation-selector .btn {
+            padding: 8px 16px;
+            font-size: 9px;
+        }
+
+        .animation-selector .btn.active {
+            border-color: #2dd4bf;
+            color: #2dd4bf;
+        }
+    </style>
+</head>
+<body>
+
+<p class="instruction">Cmd+Shift+5 para grabar pantalla</p>
+
+<div class="animation-selector">
+    <button class="btn active" onclick="setAnimation('float')">Float</button>
+    <button class="btn" onclick="setAnimation('spin')">Spin</button>
+    <button class="btn" onclick="setAnimation('pulse')">Pulse</button>
+    <button class="btn" onclick="setAnimation('bounce')">Bounce</button>
+</div>
+
+<div class="scene">
+    <div class="logo-container">
+        <div class="glow"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="orbit">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <!-- Logo PNG -->
+        <img src="logo.png" alt="SNARO Logo" class="logo-img">
+    </div>
+
+    <div class="brand">
+        <div class="brand-name">SNARO</div>
+        <div class="line"></div>
+        <div class="tagline">Tecnologia con resultados</div>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="btn" onclick="replay()">Replay</button>
+    <button class="btn" onclick="toggleBg()">Fondo</button>
+    <button class="btn primary" onclick="exportInfo()">Exportar</button>
+</div>
+
+<script>
+    function replay() {
+        location.reload();
+    }
+
+    function toggleBg() {
+        document.body.classList.toggle('white-bg');
+    }
+
+    function setAnimation(type) {
+        document.body.classList.remove('spin-mode', 'pulse-mode', 'bounce-mode');
+
+        if (type !== 'float') {
+            document.body.classList.add(type + '-mode');
+        }
+
+        document.querySelectorAll('.animation-selector .btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+    }
+
+    function exportInfo() {
+        alert('Para exportar como video:\\n\\n1. Pulsa Cmd+Shift+5\\n2. Selecciona grabar pantalla\\n3. Pulsa Replay y graba\\n4. Guarda como .mov o .mp4');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santillán</title>
+    <meta name="description" content="Automatización para instalaciones industriales - Santillán.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 40px; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 100; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 35px; width: auto; transition: opacity 0.3s ease; }
+        .logo img:hover { opacity: 0.7; }
+        nav a { font-size: 12px; font-weight: 400; color: #1d1d1f; text-decoration: none; opacity: 0.8; transition: opacity 0.4s ease; display: flex; align-items: center; }
+        nav a:hover { opacity: 1; }
+
+        .fecha { background: #ea580c; color: #fff; text-align: center; padding: 100px 24px 60px; margin-top: 44px; }
+        .fecha-label { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; opacity: 0.8; margin-bottom: 12px; }
+        .fecha-dato { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; }
+        .fecha-hora { font-size: 18px; opacity: 0.9; margin-top: 8px; }
+
+        .hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 24px; background: #fff; }
+        .hero-content { max-width: 680px; }
+        .hero-label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: #999; margin-bottom: 16px; }
+        .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; color: #000; }
+        .hero p { font-size: 16px; font-weight: 400; color: #666; max-width: 400px; margin: 0 auto 40px; line-height: 1.7; }
+        .hero-cta { font-size: 10px; font-weight: 400; color: #000; text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 1px solid #000; display: inline-block; transition: all 0.3s; }
+        .hero-cta:hover { opacity: 0.5; }
+
+        section { padding: 120px 40px; }
+        .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 60px; text-align: center; }
+
+        .services { background: #fafafa; }
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; max-width: 900px; margin: 0 auto; background: #e5e5e5; }
+        .service-card { padding: 48px 32px; background: #fafafa; transition: all 0.4s ease; }
+        .service-card:hover { background: #fff; transform: translateY(-2px); }
+        .service-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: #000; letter-spacing: -0.01em; }
+        .service-card p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
+
+        .process { background: #fff; padding: 140px 40px; }
+        .process-container { max-width: 600px; margin: 0 auto; }
+        .process-step { display: flex; gap: 40px; padding: 40px 0; border-bottom: 1px solid #eee; }
+        .process-step:last-child { border-bottom: none; }
+        .step-number { font-size: 12px; font-weight: 400; color: #666; flex-shrink: 0; padding-top: 4px; }
+        .step-content h3 { font-size: 14px; font-weight: 500; color: #000; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .step-content p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
+        .process-guarantee { text-align: center; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #000; margin-top: 60px; }
+
+        .contact { background: #fafafa; text-align: center; padding: 140px 40px; }
+        .contact h2 { font-size: 14px; font-weight: 400; color: #000; margin-bottom: 48px; letter-spacing: 0.02em; }
+        .contact-container { max-width: 400px; margin: 0 auto; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; }
+        .contact-link { font-size: 13px; font-weight: 400; color: #666; text-decoration: none; transition: color 0.4s ease; }
+        .contact-link:hover { color: #000; }
+
+        footer { padding: 40px; background: #fafafa; text-align: center; border-top: 1px solid #eee; }
+        footer p { font-size: 11px; color: #999; letter-spacing: 0.04em; }
+
+        @media (max-width: 900px) { nav { gap: 28px; } .services-grid { grid-template-columns: 1fr; } section { padding: 80px 24px; } }
+        @media (max-width: 600px) { nav { gap: 16px; } nav a { font-size: 10px; } .process-step { flex-direction: column; gap: 16px; } .hero h1 { font-size: 32px; } .fecha { padding: 80px 24px 50px; } .fecha-dato { font-size: 26px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><img src="logo.png" alt="SNARO"></div>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section class="fecha">
+        <p class="fecha-label">FECHA</p>
+        <p class="fecha-dato">—</p>
+    </section>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-label">SNARO PARA</span>
+            <h1>Santillán</h1>
+            <p>Automatización para instalaciones industriales. Sin coste inicial.</p>
+            
+        </div>
+    </section>
+
+    <section class="services" id="soluciones">
+        <h2 class="section-title">Soluciones</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Gestión de proyectos</h3>
+                <p>Control de obras e instalaciones en tiempo real.</p>
+            </div>
+            <div class="service-card">
+                <h3>Mantenimiento preventivo</h3>
+                <p>Planificación automática de revisiones y alertas.</p>
+            </div>
+            <div class="service-card">
+                <h3>Control de consumos</h3>
+                <p>Monitorización de gas, agua y electricidad.</p>
+            </div>
+            <div class="service-card">
+                <h3>Dashboard de operaciones</h3>
+                <p>Proyectos activos, técnicos y materiales en tiempo real.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="proceso">
+        <h2 class="section-title">Proceso</h2>
+        <div class="process-container">
+            <div class="process-step">
+                <span class="step-number">01</span>
+                <div class="step-content">
+                    <h3>Auditoría gratuita</h3>
+                    <p>Analizamos vuestras operaciones y detectamos oportunidades de mejora.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <span class="step-number">02</span>
+                <div class="step-content">
+                    <h3>Implementación</h3>
+                    <p>Desarrollamos la solución a medida. No pagáis hasta ver resultados.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <span class="step-number">03</span>
+                <div class="step-content">
+                    <h3>Suscripción</h3>
+                    <p>Cuota mensual solo si funciona. Canceláis cuando queráis.</p>
+                </div>
+            </div>
+        </div>
+        <p class="process-guarantee">Resultados primero</p>
+    </section>
+
+    <section class="contact" id="contacto">
+        
+        <div class="contact-container">
+            <div class="contact-links">
+                <a href="mailto:aneeugarte@gmail.com" class="contact-link">aneeugarte@gmail.com</a>
+                <a href="tel:+34688815139" class="contact-link">+34 688 815 139</a>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>© 2026 SNARO</p></footer>
+</body>
+</html>
