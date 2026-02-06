@@ -188,52 +188,19 @@
             nav { gap: 12px; padding: 0 16px; }
             nav a { font-size: 10px; }
             .logo img { height: 28px; }
-            .hero { padding: 100px 20px; -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 40%, transparent 70%); mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 40%, transparent 70%); }
+            .hero { padding: 100px 20px; background: linear-gradient(135deg, rgba(40,210,180,0.25), rgba(255,255,255,0.6), rgba(240,210,60,0.15), rgba(255,160,50,0.12), rgba(60,200,170,0.2)); background-size: 400% 400%; animation: gradientShift 14s ease-in-out infinite; }
+            .hero-light { display: none; }
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                25% { background-position: 100% 0%; }
+                50% { background-position: 50% 100%; }
+                75% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
             .hero h1 { font-size: 28px; }
             .hero h1 strong { white-space: normal; }
             .hero p { font-size: 14px; margin-bottom: 24px; }
             .hero-cta { margin-top: 40px; padding: 12px 32px; font-size: 12px; }
-            .hero-light { filter: blur(250px); }
-            .hero-light--cyan1 { width: 150vw; height: 150vw; opacity: 0.4; animation-name: mMove1; }
-            .hero-light--cyan2 { width: 130vw; height: 130vw; opacity: 0.35; animation-name: mMove2; }
-            .hero-light--white { width: 120vw; height: 120vw; opacity: 0.5; animation-name: mMove3; }
-            .hero-light--yellow { width: 110vw; height: 110vw; opacity: 0.3; animation-name: mMove4; }
-            .hero-light--orange { width: 100vw; height: 100vw; opacity: 0.25; animation-name: mMove5; }
-            @keyframes mMove1 {
-                0% { top: -30%; left: -30%; }
-                25% { top: 10%; left: -10%; }
-                50% { top: -20%; left: 0%; }
-                75% { top: 10%; left: -25%; }
-                100% { top: -30%; left: -30%; }
-            }
-            @keyframes mMove2 {
-                0% { top: 0%; left: -10%; }
-                25% { top: 20%; left: -20%; }
-                50% { top: -10%; left: -5%; }
-                75% { top: 5%; left: -30%; }
-                100% { top: 0%; left: -10%; }
-            }
-            @keyframes mMove3 {
-                0% { top: 10%; left: -15%; }
-                25% { top: -10%; left: 0%; }
-                50% { top: -5%; left: -25%; }
-                75% { top: 15%; left: -10%; }
-                100% { top: 10%; left: -15%; }
-            }
-            @keyframes mMove4 {
-                0% { top: -15%; left: -5%; }
-                25% { top: 5%; left: -20%; }
-                50% { top: 15%; left: -10%; }
-                75% { top: -10%; left: 0%; }
-                100% { top: -15%; left: -5%; }
-            }
-            @keyframes mMove5 {
-                0% { top: 5%; left: -10%; }
-                25% { top: 15%; left: -30%; }
-                50% { top: 0%; left: -5%; }
-                75% { top: -15%; left: -15%; }
-                100% { top: 5%; left: -10%; }
-            }
             .services-grid, .resultados-grid { grid-template-columns: 1fr; }
             .service-card, .resultado-card { padding: 32px 24px; }
             .services-more p { font-size: 12px; line-height: 1.7; }
