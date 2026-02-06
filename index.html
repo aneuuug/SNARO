@@ -12,7 +12,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
         /* Navigation */
         nav { position: fixed; top: 0; left: 0; right: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 40px; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 100; animation: fadeIn 0.5s ease-out; }
@@ -126,9 +126,9 @@
         .resultado-dato { font-size: 13px; color: #000; font-weight: 500; }
 
         /* Por qué SNARO */
-        .porque { position: relative; overflow: hidden; background: #111; }
-        .porque-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .porque::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); z-index: 1; }
+        .porque { position: relative; overflow: hidden; background: #fff; }
+        .porque-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; }
+        .porque::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); z-index: 1; }
         .porque > *:not(.porque-bg) { position: relative; z-index: 2; }
         .porque .section-title { color: rgba(255, 255, 255, 0.5); }
         .porque .section-headline { color: #fff; }
@@ -180,15 +180,74 @@
             .dif-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
             .porque-grid { grid-template-columns: 1fr; }
             section { padding: 80px 24px; }
+            .diferenciadores { padding: 80px 24px; }
+            .contact { padding: 80px 24px; }
         }
 
         @media (max-width: 600px) {
-            nav { gap: 16px; }
+            nav { gap: 12px; padding: 0 16px; }
             nav a { font-size: 10px; }
+            .logo img { height: 28px; }
+            .hero { padding: 100px 20px; }
+            .hero h1 { font-size: 28px; }
+            .hero h1 strong { white-space: normal; }
+            .hero p { font-size: 14px; margin-bottom: 24px; }
+            .hero-cta { margin-top: 40px; padding: 12px 32px; font-size: 12px; }
+            .hero-light { filter: blur(250px); }
+            .hero-light--cyan1 { width: 150vw; height: 150vw; opacity: 0.4; animation-name: mMove1; }
+            .hero-light--cyan2 { width: 130vw; height: 130vw; opacity: 0.35; animation-name: mMove2; }
+            .hero-light--white { width: 120vw; height: 120vw; opacity: 0.5; animation-name: mMove3; }
+            .hero-light--yellow { width: 110vw; height: 110vw; opacity: 0.3; animation-name: mMove4; }
+            .hero-light--orange { width: 100vw; height: 100vw; opacity: 0.25; animation-name: mMove5; }
+            @keyframes mMove1 {
+                0% { top: -30%; left: -30%; }
+                25% { top: 10%; left: -10%; }
+                50% { top: -20%; left: 0%; }
+                75% { top: 10%; left: -25%; }
+                100% { top: -30%; left: -30%; }
+            }
+            @keyframes mMove2 {
+                0% { top: 0%; left: -10%; }
+                25% { top: 20%; left: -20%; }
+                50% { top: -10%; left: -5%; }
+                75% { top: 5%; left: -30%; }
+                100% { top: 0%; left: -10%; }
+            }
+            @keyframes mMove3 {
+                0% { top: 10%; left: -15%; }
+                25% { top: -10%; left: 0%; }
+                50% { top: -5%; left: -25%; }
+                75% { top: 15%; left: -10%; }
+                100% { top: 10%; left: -15%; }
+            }
+            @keyframes mMove4 {
+                0% { top: -15%; left: -5%; }
+                25% { top: 5%; left: -20%; }
+                50% { top: 15%; left: -10%; }
+                75% { top: -10%; left: 0%; }
+                100% { top: -15%; left: -5%; }
+            }
+            @keyframes mMove5 {
+                0% { top: 5%; left: -10%; }
+                25% { top: 15%; left: -30%; }
+                50% { top: 0%; left: -5%; }
+                75% { top: -15%; left: -15%; }
+                100% { top: 5%; left: -10%; }
+            }
             .services-grid, .resultados-grid { grid-template-columns: 1fr; }
-            .dif-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-            .process-step { flex-direction: column; gap: 16px; }
-            .hero h1 { font-size: 32px; }
+            .service-card, .resultado-card { padding: 32px 24px; }
+            .services-more p { font-size: 12px; line-height: 1.7; }
+            .dif-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .dif-number { font-size: 28px; }
+            .dif-text { font-size: 12px; }
+            .diferenciadores { padding: 60px 20px; }
+            .section-headline { font-size: 22px; margin-bottom: 40px; }
+            .process-step { flex-direction: column; gap: 12px; padding: 32px 0; }
+            .step-number { font-size: 24px; }
+            .porque-item { padding: 24px; }
+            .contact { padding: 80px 20px; }
+            .contact-form button { padding: 12px 32px; font-size: 12px; }
+            footer { padding: 32px 20px; }
         }
     </style>
 </head>
