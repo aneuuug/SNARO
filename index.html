@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNARO — Creamos espacio para lo que importa</title>
+    <title>SNARO — Soluciones digitales</title>
     <link rel="icon" type="image/png" href="favicon.cropped.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,54 +15,140 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
         /* Navigation */
-        nav { position: fixed; top: 0; left: 0; right: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 40px; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 100; }
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 40px; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 100; animation: fadeIn 0.5s ease-out; }
         .logo { display: flex; align-items: center; }
         .logo img { height: 35px; width: auto; }
-        nav a { font-size: 12px; font-weight: 400; color: #1d1d1f; text-decoration: none; opacity: 0.8; transition: opacity 0.4s ease; display: flex; align-items: center; }
+        nav a { font-size: 12px; font-weight: 400; color: #1d1d1f; text-decoration: none; opacity: 0.8; transition: opacity 0.3s ease; display: flex; align-items: center; }
         nav a:hover { opacity: 1; }
 
         /* Hero */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px; background: #fff; }
-        .hero-content { max-width: 680px; }
-        .hero-label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: #999; margin-bottom: 16px; }
-        .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; color: #000; }
-        .hero p { font-size: 16px; font-weight: 400; color: #666; max-width: 400px; margin: 0 auto 40px; line-height: 1.7; }
-        .hero-cta { font-size: 10px; font-weight: 400; color: #000; text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 1px solid #000; margin-top: 120px; display: inline-block; transition: all 0.3s; }
-        .hero-cta:hover { opacity: 0.5; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px; background: #fff; position: relative; overflow: hidden; isolation: isolate; }
+        .hero-light { position: absolute; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none; }
+        .hero-light--cyan1 { width: 1000px; height: 1000px; background: rgba(40, 210, 180, 0.65); animation: moveGreen 14s ease-in-out infinite; }
+        .hero-light--cyan2 { width: 900px; height: 900px; background: rgba(60, 200, 170, 0.55); animation: moveBlue 16s ease-in-out infinite; }
+        .hero-light--white { width: 700px; height: 700px; background: rgba(255, 255, 255, 0.70); animation: movePink 13s ease-in-out infinite; }
+        .hero-light--yellow { width: 600px; height: 600px; background: rgba(240, 210, 60, 0.45); animation: moveYellow 12s ease-in-out infinite; }
+        .hero-light--orange { width: 500px; height: 500px; background: rgba(255, 160, 50, 0.35); animation: moveOrange 11s ease-in-out infinite; }
+        .hero-content { max-width: 700px; width: 100%; position: relative; z-index: 1; }
+
+        @keyframes moveGreen {
+            0% { top: 10%; left: 5%; }
+            25% { top: 60%; left: 70%; }
+            50% { top: 20%; left: 80%; }
+            75% { top: 70%; left: 20%; }
+            100% { top: 10%; left: 5%; }
+        }
+        @keyframes moveOrange {
+            0% { top: 30%; left: 50%; }
+            25% { top: 70%; left: 5%; }
+            50% { top: 50%; left: 70%; }
+            75% { top: 5%; left: 40%; }
+            100% { top: 30%; left: 50%; }
+        }
+        @keyframes moveYellow {
+            0% { top: 5%; left: 40%; }
+            25% { top: 50%; left: 80%; }
+            50% { top: 80%; left: 30%; }
+            75% { top: 30%; left: 10%; }
+            100% { top: 5%; left: 40%; }
+        }
+        @keyframes movePink {
+            0% { top: 70%; left: 30%; }
+            25% { top: 20%; left: 70%; }
+            50% { top: 10%; left: 15%; }
+            75% { top: 60%; left: 60%; }
+            100% { top: 70%; left: 30%; }
+        }
+        @keyframes moveBlue {
+            0% { top: 40%; left: 70%; }
+            25% { top: 80%; left: 40%; }
+            50% { top: 15%; left: 50%; }
+            75% { top: 50%; left: 5%; }
+            100% { top: 40%; left: 70%; }
+        }
+        .hero-brand { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: #000; margin-bottom: 16px; animation: fadeUp 0.5s ease-out 0.1s both; }
+        .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; color: #000; text-align: center; animation: fadeUp 0.5s ease-out 0.2s both; }
+        .hero h1 strong { font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+        .hero p { font-size: 16px; font-weight: 400; color: #000; max-width: 480px; margin: 0 auto 40px; line-height: 1.7; text-align: center; animation: fadeUp 0.5s ease-out 0.3s both; }
+        .hero-cta { display: inline-block; font-size: 13px; font-weight: 500; color: #000; text-decoration: none; letter-spacing: 0.02em; background: rgba(255, 255, 255, 0.45); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); padding: 14px 40px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.5); margin-top: 80px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation: fadeUp 0.5s ease-out 0.4s both; }
+        .hero-cta:hover { background: rgba(255, 255, 255, 0.65); transform: translateY(-1px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08); }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Sections */
         section { padding: 120px 40px; }
-        .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 60px; text-align: center; }
+        .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 20px; text-align: center; }
+        .section-headline { font-size: clamp(24px, 3.5vw, 36px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.3; color: #000; text-align: center; max-width: 600px; margin: 0 auto 60px; }
+
+        /* Diferenciadores */
+        .diferenciadores { background: #fff; padding: 100px 40px; }
+        .dif-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto; }
+        .dif-item { text-align: center; }
+        .dif-number { font-size: 36px; font-weight: 300; color: #1a9c8a; letter-spacing: -0.02em; margin-bottom: 8px; }
+        .dif-text { font-size: 13px; color: #666; line-height: 1.5; }
 
         /* Services */
         .services { background: #fafafa; }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; max-width: 1200px; margin: 0 auto; background: #e5e5e5; }
-        .service-card { padding: 48px 32px; background: #fafafa; transition: all 0.4s ease; }
-        .service-card:hover { background: #fff; transform: translateY(-2px); }
-        .service-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: #000; letter-spacing: -0.01em; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .service-card { padding: 40px 32px; background: #fff; border-radius: 8px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .service-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .service-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #000; letter-spacing: -0.01em; }
         .service-card p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
+        .services-more { text-align: center; margin-top: 48px; }
+        .services-more p { font-size: 13px; color: #999; line-height: 1.8; }
+        .services-more span { color: #666; }
 
         /* Process */
-        .process { background: #fff; padding: 140px 40px; }
+        .process { background: #fff; padding: 120px 40px; }
         .process-container { max-width: 600px; margin: 0 auto; }
         .process-step { display: flex; gap: 40px; padding: 40px 0; border-bottom: 1px solid #eee; }
         .process-step:last-child { border-bottom: none; }
-        .step-number { font-size: 12px; font-weight: 400; color: #666; flex-shrink: 0; padding-top: 4px; }
-        .step-content h3 { font-size: 14px; font-weight: 500; color: #000; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .step-number { font-size: 32px; font-weight: 300; color: #ddd; letter-spacing: -0.02em; flex-shrink: 0; }
+        .step-content h3 { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 12px; letter-spacing: -0.01em; }
         .step-content p { font-size: 13px; color: #666; line-height: 1.6; font-weight: 400; }
-        .process-guarantee { text-align: center; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #000; margin-top: 60px; }
+        .process-guarantee { text-align: center; font-size: 14px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: #000; margin-top: 60px; }
+
+        /* Resultados */
+        .resultados { background: #fafafa; }
+        .resultados-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .resultado-card { padding: 40px 32px; background: #fff; border-radius: 8px; }
+        .resultado-card .sector { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #1a9c8a; margin-bottom: 16px; }
+        .resultado-card h3 { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .resultado-card p { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+        .resultado-dato { font-size: 13px; color: #000; font-weight: 500; }
+
+        /* Por qué SNARO */
+        .porque { position: relative; overflow: hidden; background: #111; }
+        .porque-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .porque::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); z-index: 1; }
+        .porque > *:not(.porque-bg) { position: relative; z-index: 2; }
+        .porque .section-title { color: rgba(255, 255, 255, 0.5); }
+        .porque .section-headline { color: #fff; }
+        .porque-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; }
+        .porque-item { padding: 32px; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .porque-item h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+        .porque-item p { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.6; }
 
         /* Contact */
         .contact { background: #fafafa; text-align: center; padding: 140px 40px; }
-        .contact h2 { font-size: 14px; font-weight: 400; color: #000; margin-bottom: 48px; letter-spacing: 0.02em; }
-        .contact-container { max-width: 600px; margin: 0 auto; }
+        .contact h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 300; color: #000; margin-bottom: 16px; letter-spacing: -0.02em; }
+        .contact .contact-sub { font-size: 14px; color: #666; margin-bottom: 48px; }
+        .contact-container { max-width: 500px; margin: 0 auto; }
         .contact-form { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
-        .contact-form input, .contact-form textarea { font-family: inherit; font-size: 13px; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; background: transparent; color: #000; transition: border-color 0.3s; }
-        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-bottom-color: #000; }
-        .contact-form input::placeholder, .contact-form textarea::placeholder { color: #888; font-weight: 300; }
-        .contact-form textarea { resize: none; min-height: 80px; }
-        .contact-form button { font-family: inherit; font-size: 10px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 14px 0; background: transparent; color: #000; border: none; border-bottom: 1px solid #000; cursor: pointer; transition: opacity 0.3s; margin-top: 20px; align-self: center; }
-        .contact-form button:hover { opacity: 0.5; }
+        .contact-form input, .contact-form textarea { font-family: inherit; font-size: 13px; padding: 14px 16px; border: 1px solid #ddd; border-radius: 6px; background: #fff; color: #000; transition: border-color 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #1a9c8a; }
+        .contact-form input::placeholder, .contact-form textarea::placeholder { color: #999; font-weight: 300; }
+        .contact-form textarea { resize: none; min-height: 100px; }
+        .contact-form button { font-family: inherit; font-size: 13px; font-weight: 500; padding: 14px 40px; background: rgba(40, 210, 180, 0.25); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); color: #000; border: 1px solid rgba(40, 210, 180, 0.3); border-radius: 50px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin-top: 8px; }
+        .contact-form button:hover { background: rgba(40, 210, 180, 0.40); }
         .form-success { font-size: 14px; color: #000; text-align: center; padding: 40px 0; display: none; }
         .contact-divider { font-size: 12px; color: #999; margin-bottom: 24px; }
         .contact-links { display: flex; flex-direction: column; gap: 8px; }
@@ -72,18 +158,35 @@
         /* Footer */
         footer { padding: 40px; background: #fafafa; text-align: center; border-top: 1px solid #eee; }
         footer p { font-size: 11px; color: #999; letter-spacing: 0.04em; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+        .footer-links a { font-size: 11px; color: #999; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: #000; }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Responsive */
         @media (max-width: 900px) {
             nav { gap: 28px; }
-            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid, .resultados-grid { grid-template-columns: repeat(2, 1fr); }
+            .dif-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .porque-grid { grid-template-columns: 1fr; }
             section { padding: 80px 24px; }
         }
 
         @media (max-width: 600px) {
             nav { gap: 16px; }
             nav a { font-size: 10px; }
-            .services-grid { grid-template-columns: 1fr; }
+            .services-grid, .resultados-grid { grid-template-columns: 1fr; }
+            .dif-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .process-step { flex-direction: column; gap: 16px; }
             .hero h1 { font-size: 32px; }
         }
@@ -93,89 +196,196 @@
     <nav>
         <a href="#" class="logo"><img src="logo.png" alt="SNARO"></a>
         <a href="#servicios">Servicios</a>
+        <a href="#resultados">Resultados</a>
         <a href="#proceso">Proceso</a>
         <a href="#contacto">Contacto</a>
     </nav>
 
     <section class="hero">
+        <div class="hero-light hero-light--cyan1"></div>
+        <div class="hero-light hero-light--cyan2"></div>
+        <div class="hero-light hero-light--white"></div>
+        <div class="hero-light hero-light--yellow"></div>
+        <div class="hero-light hero-light--orange"></div>
         <div class="hero-content">
-            <span class="hero-label">SNARO</span>
-            <h1>Tecnología con resultados</h1>
-            <p>Impulsamos tu negocio</p>
-            <a href="#contacto" class="hero-cta">Descubre cómo</a>
+            <h1><span class="hero-brand">SNARO</span><strong>Soluciones digitales</strong></h1>
+            <p>Somos una ingeniería tecnológica. Transformamos procesos. Mejoramos resultados.</p>
+            <a href="#contacto" class="hero-cta">Solicita tu auditoría gratuita</a>
         </div>
     </section>
 
     <section id="servicios" class="services">
-        <h2 class="section-title">Servicios</h2>
+        <h2 class="section-title reveal">Servicios</h2>
+        <p class="section-headline reveal">Todo lo que necesitas para digitalizar tu empresa</p>
         <div class="services-grid">
-            <div class="service-card">
-                <h3>Automatización</h3>
-                <p>Flujos operativos integrados. Pedidos, presupuestos y órdenes automáticos.</p>
-            </div>
-            <div class="service-card">
+            <div class="service-card reveal" style="transition-delay: 0s">
                 <h3>Business Intelligence</h3>
-                <p>Dashboards y modelos predictivos. KPIs en tiempo real.</p>
+                <p>Dashboards, modelos predictivos y KPIs en tiempo real. Toma decisiones basadas en datos, no en intuición.</p>
             </div>
-            <div class="service-card">
-                <h3>Gestión financiera</h3>
-                <p>Facturación, conciliación bancaria y control de gastos.</p>
+            <div class="service-card reveal" style="transition-delay: 0.1s">
+                <h3>ERP</h3>
+                <p>Digitalización y automatización de procesos. Contabilidad, inventario, compras, RRHH, logística e integraciones.</p>
             </div>
-            <div class="service-card">
-                <h3>Gestión documental</h3>
-                <p>OCR avanzado. Extracción y clasificación inteligente.</p>
+            <div class="service-card reveal" style="transition-delay: 0.12s">
+                <h3>CRM</h3>
+                <p>Gestión de clientes, leads y oportunidades. Reporting, alertas y seguimiento comercial automatizado.</p>
             </div>
-            <div class="service-card">
-                <h3>Soluciones digitales</h3>
-                <p>Transformación digital, apps y plataformas web.</p>
+            <div class="service-card reveal" style="transition-delay: 0.2s">
+                <h3>Automatización</h3>
+                <p>Flujos operativos integrados. Pedidos, presupuestos y órdenes automáticos conectados a tus sistemas.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal" style="transition-delay: 0.25s">
+                <h3>Facturación</h3>
+                <p>Facturas estructuradas e ilimitadas. Control de vencimientos, conciliación bancaria y gestión de cobros.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.3s">
                 <h3>Desarrollo a medida</h3>
-                <p>Si no existe, lo construimos para ti.</p>
+                <p>Si no existe, lo construimos. Apps, plataformas web y herramientas adaptadas a tu negocio.</p>
+            </div>
+        </div>
+        <div class="services-more reveal" style="transition-delay: 0.35s">
+            <p>También trabajamos en <span>ciberseguridad, comunicaciones, oficina digital, desarrollo web, redes sociales, e-commerce, inteligencia artificial, transformación digital y optimización de procesos.</span></p>
+        </div>
+    </section>
+
+    <section class="diferenciadores">
+        <div class="dif-grid">
+            <div class="dif-item reveal" style="transition-delay: 0s">
+                <div class="dif-number">100%</div>
+                <div class="dif-text">No pagas hasta ver resultados</div>
+            </div>
+            <div class="dif-item reveal" style="transition-delay: 0.1s">
+                <div class="dif-number">-60%</div>
+                <div class="dif-text">Reducción media en tiempos operativos</div>
+            </div>
+            <div class="dif-item reveal" style="transition-delay: 0.2s">
+                <div class="dif-number">48h</div>
+                <div class="dif-text">Auditoría inicial entregada</div>
+            </div>
+            <div class="dif-item reveal" style="transition-delay: 0.3s">
+                <div class="dif-number">0</div>
+                <div class="dif-text">Permanencia. Cancela cuando quieras</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resultados" class="resultados">
+        <h2 class="section-title reveal">Resultados</h2>
+        <p class="section-headline reveal">Proyectos reales, impacto medible</p>
+        <div class="resultados-grid">
+            <div class="resultado-card reveal" style="transition-delay: 0s">
+                <div class="sector">Servicios profesionales</div>
+                <h3>Facturación y gestión</h3>
+                <p>Plataforma de facturación integrada con conciliación bancaria y control de vencimientos automático.</p>
+                <div class="resultado-dato">De 3 días a 2 horas en cierre mensual</div>
+            </div>
+            <div class="resultado-card reveal" style="transition-delay: 0.1s">
+                <div class="sector">Logística</div>
+                <h3>ERP a medida</h3>
+                <p>Sistema integral que conecta almacén, rutas, facturación y RRHH en una sola plataforma.</p>
+                <div class="resultado-dato">-60% en tiempo de gestión operativa</div>
+            </div>
+            <div class="resultado-card reveal" style="transition-delay: 0.12s">
+                <div class="sector">Retail</div>
+                <h3>Business Intelligence</h3>
+                <p>Dashboard de KPIs con datos de ventas, stock y comportamiento de cliente en tiempo real.</p>
+                <div class="resultado-dato">Decisiones basadas en datos desde el día 1</div>
+            </div>
+            <div class="resultado-card reveal" style="transition-delay: 0.2s">
+                <div class="sector">Construcción</div>
+                <h3>App de gestión de obra</h3>
+                <p>Aplicación móvil para seguimiento de proyectos, partes de trabajo y documentación en campo.</p>
+                <div class="resultado-dato">Eliminación total del papel en obra</div>
+            </div>
+            <div class="resultado-card reveal" style="transition-delay: 0.25s">
+                <div class="sector">Sector industrial</div>
+                <h3>Automatización de producción</h3>
+                <p>Sistema de monitorización y control de planta que conecta ERP con maquinaria en tiempo real.</p>
+                <div class="resultado-dato">Reducción del 45% en tiempos muertos</div>
+            </div>
+            <div class="resultado-card reveal" style="transition-delay: 0.3s">
+                <div class="sector">Distribución</div>
+                <h3>Digitalización comercial</h3>
+                <p>CRM personalizado con seguimiento automatizado desde el lead hasta el cierre de venta.</p>
+                <div class="resultado-dato">+35% en tasa de conversión comercial</div>
             </div>
         </div>
     </section>
 
     <section id="proceso" class="process">
-        <h2 class="section-title">Proceso</h2>
+        <h2 class="section-title reveal">Proceso</h2>
+        <p class="section-headline reveal">Sin riesgo. Sin permanencia. Sin letra pequeña.</p>
         <div class="process-container">
-            <div class="process-step">
+            <div class="process-step reveal" style="transition-delay: 0s">
                 <span class="step-number">01</span>
                 <div class="step-content">
                     <h3>Auditoría gratuita</h3>
-                    <p>Analizamos tus operaciones y detectamos oportunidades de mejora.</p>
+                    <p>Analizamos tus operaciones y detectamos exactamente dónde estás perdiendo tiempo y dinero.</p>
                 </div>
             </div>
-            <div class="process-step">
+            <div class="process-step reveal" style="transition-delay: 0.1s">
                 <span class="step-number">02</span>
                 <div class="step-content">
-                    <h3>Implementación</h3>
-                    <p>Desarrollamos la solución a medida. No pagas hasta ver resultados.</p>
+                    <h3>Propuesta a medida</h3>
+                    <p>Diseñamos la solución alineada con tus objetivos. Te explicamos qué, cómo y cuánto antes de empezar.</p>
                 </div>
             </div>
-            <div class="process-step">
+            <div class="process-step reveal" style="transition-delay: 0.2s">
                 <span class="step-number">03</span>
                 <div class="step-content">
-                    <h3>Suscripción</h3>
-                    <p>Cuota mensual solo si funciona. Cancela cuando quieras.</p>
+                    <h3>Implementación</h3>
+                    <p>Desarrollamos e integramos la solución. No pagas hasta que funcione y veas resultados reales.</p>
+                </div>
+            </div>
+            <div class="process-step reveal" style="transition-delay: 0.3s">
+                <span class="step-number">04</span>
+                <div class="step-content">
+                    <h3>Soporte continuo</h3>
+                    <p>Acompañamiento, formación y evolución. Hablas directamente con quien construye tu solución.</p>
                 </div>
             </div>
         </div>
-        <div class="process-guarantee">Resultados primero</div>
+        <div class="process-guarantee reveal" style="transition-delay: 0.4s">Resultados primero</div>
+    </section>
+
+    <section class="porque">
+        <img src="image.JPG" alt="" class="porque-bg">
+        <h2 class="section-title reveal">Por qué SNARO</h2>
+        <p class="section-headline reveal">No somos una consultora más</p>
+        <div class="porque-grid">
+            <div class="porque-item reveal" style="transition-delay: 0s">
+                <h3>Trato directo</h3>
+                <p>Hablas con quien diseña y construye tu solución. Sin intermediarios, sin teléfonos de atención al cliente.</p>
+            </div>
+            <div class="porque-item reveal" style="transition-delay: 0.1s">
+                <h3>Precio justo</h3>
+                <p>Sin estructura de gran empresa. Eso se traduce en precios más competitivos por el mismo nivel técnico.</p>
+            </div>
+            <div class="porque-item reveal" style="transition-delay: 0.15s">
+                <h3>Rapidez</h3>
+                <p>Equipos pequeños, decisiones rápidas. Donde otros tardan meses, nosotros entregamos en semanas.</p>
+            </div>
+            <div class="porque-item reveal" style="transition-delay: 0.2s">
+                <h3>Sin riesgo</h3>
+                <p>No pagas hasta ver resultados. Sin permanencia. Apostamos por lo que hacemos porque sabemos que funciona.</p>
+            </div>
+        </div>
     </section>
 
     <section id="contacto" class="contact">
-        <h2>Hablemos</h2>
+        <h2 class="reveal">Hablemos</h2>
+        <p class="contact-sub reveal">Cuéntanos tu caso. La auditoría inicial es gratuita y sin compromiso.</p>
         <div class="contact-container">
-            <form id="contact-form" class="contact-form">
+            <form id="contact-form" class="contact-form reveal">
                 <input type="text" name="nombre" placeholder="Tu nombre" required>
                 <input type="email" name="email" placeholder="Tu email" required>
-                <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
-                <button type="submit">Enviar</button>
+                <input type="text" name="empresa" placeholder="Tu empresa">
+                <textarea name="mensaje" placeholder="Cuéntanos brevemente qué necesitas" required></textarea>
+                <button type="submit">Solicitar auditoría gratuita</button>
             </form>
-            <div id="form-success" class="form-success">Mensaje enviado. Te contactaremos pronto.</div>
+            <div id="form-success" class="form-success">Mensaje enviado. Te contactaremos en menos de 24 horas.</div>
 
-            <div class="contact-divider">¿Prefieres hablar?</div>
+            <div class="contact-divider">¿Prefieres hablar directamente?</div>
             <div class="contact-links">
                 <a href="tel:+34688815139" class="contact-link">+34 688 815 139</a>
             </div>
@@ -183,10 +393,24 @@
     </section>
 
     <footer>
-        <p>© 2026 SNARO</p>
+        <div class="footer-links">
+            <a href="#">Aviso legal</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Cookies</a>
+        </div>
+        <p>&copy; 2026 SNARO</p>
     </footer>
 
     <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = e.target;
