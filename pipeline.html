@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNARO — Pipeline</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>S</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; font-weight: 300; color: #000; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .connection-status { position: fixed; top: 10px; right: 10px; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 400; z-index: 1000; display: flex; align-items: center; gap: 6px; }
+        .connection-status.online { background: #d4edda; color: #155724; }
+        .connection-status.offline { background: #fff3cd; color: #856404; }
+        .connection-status .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .connection-status.online .dot { background: #28a745; }
+        .connection-status.offline .dot { background: #ffc107; }
+        .header { padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; }
+        .logo-container { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+        .logo-text { font-size: 18px; font-weight: 500; letter-spacing: 0.15em; color: #000; }
+        .logo-subtitle { font-size: 11px; color: #999; letter-spacing: 0.1em; }
+        .header-actions { display: flex; align-items: center; gap: 16px; }
+        .btn-header { padding: 8px 16px; border: 1px solid #e0e0e0; background: #fff; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .btn-header:hover { background: #f5f5f5; }
+        .main-container { display: flex; min-height: calc(100vh - 81px); }
+        .sidebar { width: 200px; padding: 40px 24px; border-right: 1px solid #f0f0f0; }
+        .sidebar-section { margin-bottom: 32px; }
+        .sidebar-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: 12px; }
+        .sidebar-link { display: block; padding: 8px 0; color: #666; text-decoration: none; font-size: 13px; cursor: pointer; transition: color 0.2s; }
+        .sidebar-link:hover, .sidebar-link.active { color: #000; }
+        .sidebar-link.active { font-weight: 400; }
+        .sidebar-link .count { color: #999; font-size: 11px; margin-left: 6px; }
+        .content { flex: 1; padding: 40px; display: none; }
+        .content.active { display: block; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .page-title { font-size: 24px; font-weight: 400; }
+        .page-title span { color: #999; font-weight: 300; }
+        .filters { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+        .filter-input, .filter-select { padding: 10px 14px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-family: inherit; background: #fff; }
+        .filter-input:focus, .filter-select:focus { outline: none; border-color: #000; }
+        .filter-input { width: 260px; }
+        .prospect-list { display: flex; flex-direction: column; gap: 8px; }
+        .prospect-card { display: flex; align-items: center; padding: 16px 20px; background: #fafafa; border-radius: 8px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .prospect-card:hover { background: #f0f0f0; }
+        .priority-indicator { width: 4px; height: 40px; border-radius: 2px; margin-right: 16px; }
+        .priority-high .priority-indicator { background: #000; }
+        .priority-medium .priority-indicator { background: #999; }
+        .priority-low .priority-indicator { background: #ddd; }
+        .prospect-info { flex: 1; }
+        .prospect-info .name { font-size: 14px; font-weight: 400; margin-bottom: 4px; }
+        .prospect-info .meta { font-size: 12px; color: #666; margin-bottom: 4px; }
+        .prospect-info .detail { font-size: 11px; color: #999; }
+        .btn-move { padding: 8px 16px; border: 1px solid #e0e0e0; background: #fff; border-radius: 4px; font-size: 12px; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+        .prospect-card:hover .btn-move { opacity: 1; }
+        .btn-move:hover { background: #000; color: #fff; border-color: #000; }
+        .pipeline-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .pipeline-column { background: #fafafa; border-radius: 8px; padding: 16px; min-height: 400px; }
+        .column-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0; }
+        .column-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        .column-count { background: #e0e0e0; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .pipeline-card { background: #fff; border-radius: 6px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: box-shadow 0.2s; border: 1px solid #eee; }
+        .pipeline-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .pipeline-card .name { font-size: 13px; font-weight: 400; margin-bottom: 4px; }
+        .pipeline-card .sector { font-size: 11px; color: #666; }
+        .pipeline-card .actions { display: flex; gap: 4px; margin-top: 8px; opacity: 0; transition: opacity 0.2s; }
+        .pipeline-card:hover .actions { opacity: 1; }
+        .pipeline-card .actions button { flex: 1; padding: 4px; border: 1px solid #e0e0e0; background: #fff; border-radius: 3px; font-size: 10px; cursor: pointer; }
+        .pipeline-card .actions button:hover { background: #f5f5f5; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 100; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #fff; border-radius: 12px; width: 500px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { padding: 24px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 18px; font-weight: 400; }
+        .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
+        .modal-body { padding: 24px; }
+        .detail-row { margin-bottom: 16px; }
+        .detail-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: 4px; }
+        .detail-value { font-size: 14px; }
+        .status-select { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; font-family: inherit; margin-top: 16px; }
+        .notes-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid #f0f0f0; }
+        .notes-textarea { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 100px; }
+        .btn-save { margin-top: 12px; padding: 10px 20px; background: #000; color: #fff; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; }
+        .btn-save:hover { background: #333; }
+        .notification { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #000; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 200; }
+        .notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+        .empty-state p { margin-bottom: 8px; }
+        .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: #999; }
+        .spinner { width: 20px; height: 20px; border: 2px solid #e0e0e0; border-top-color: #000; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .setup-container { max-width: 600px; margin: 100px auto; padding: 40px; background: #fafafa; border-radius: 12px; }
+        .setup-title { font-size: 24px; margin-bottom: 8px; }
+        .setup-subtitle { color: #666; margin-bottom: 32px; }
+        .setup-step { margin-bottom: 24px; padding: 20px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; }
+        .setup-step h3 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+        .setup-step p { font-size: 13px; color: #666; margin-bottom: 12px; }
+        .setup-input { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-family: monospace; margin-top: 8px; }
+        .btn-setup { width: 100%; padding: 14px; background: #000; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; margin-top: 24px; }
+        .btn-setup:hover { background: #333; }
+        .btn-skip { width: 100%; padding: 14px; background: #fff; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; cursor: pointer; margin-top: 12px; }
+        @media (max-width: 900px) { .pipeline-container { grid-template-columns: repeat(2, 1fr); } .sidebar { width: 160px; } }
+        @media (max-width: 600px) { .main-container { flex-direction: column; } .sidebar { width: 100%; padding: 20px; border-right: none; border-bottom: 1px solid #f0f0f0; } .pipeline-container { grid-template-columns: 1fr; } }
+        @media (prefers-color-scheme: dark) {
+            body { background: #0a0a0a; color: #fff; }
+            .setup-container { background: #1a1a1a; }
+            .setup-title { color: #fff; }
+            .setup-subtitle { color: #aaa; }
+            .setup-step { background: #222; border-color: #333; color: #ddd; }
+            .setup-step h3 { color: #fff; }
+            .setup-step p { color: #aaa; }
+            .setup-step a { color: #667eea; }
+            .setup-input { background: #1a1a1a; border-color: #333; color: #fff; }
+            .setup-input::placeholder { color: #666; }
+            .btn-skip { background: #1a1a1a; color: #aaa; border-color: #333; }
+            .header { border-color: #222; }
+            .logo-text { color: #fff; }
+            .btn-header { background: #1a1a1a; border-color: #333; color: #fff; }
+            .btn-header:hover { background: #222; }
+            .sidebar { border-color: #222; }
+            .sidebar-link { color: #aaa; }
+            .sidebar-link:hover, .sidebar-link.active { color: #fff; }
+            .content { color: #fff; }
+            .page-title { color: #fff; }
+            .filter-input, .filter-select { background: #1a1a1a; border-color: #333; color: #fff; }
+            .prospect-card { background: #1a1a1a; }
+            .prospect-card:hover { background: #222; }
+            .prospect-info .name { color: #fff; }
+            .pipeline-column { background: #1a1a1a; }
+            .column-header { border-color: #333; }
+            .column-title { color: #fff; }
+            .column-count { background: #333; color: #fff; }
+            .pipeline-card { background: #222; border-color: #333; }
+            .pipeline-card .name { color: #fff; }
+            .modal { background: #1a1a1a; }
+            .modal-header { border-color: #333; }
+            .modal-title { color: #fff; }
+            .detail-value { color: #fff; }
+            .status-select { background: #222; border-color: #333; color: #fff; }
+            .notes-section { border-color: #333; }
+            .notes-textarea { background: #222; border-color: #333; color: #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div id="connectionStatus" class="connection-status offline"><span class="dot"></span><span class="text">Modo local</span></div>
+    <div id="setupScreen" style="display: none;">
+        <div class="setup-container">
+            <h1 class="setup-title">Configurar SNARO Pipeline</h1>
+            <p class="setup-subtitle">Conecta con Supabase para sincronizar tus datos en la nube</p>
+            <div class="setup-step"><h3>1. Crea un proyecto en Supabase</h3><p>Ve a <a href="https://supabase.com" target="_blank">supabase.com</a> y crea un proyecto gratis</p></div>
+            <div class="setup-step"><h3>2. Ejecuta el SQL de configuración</h3><p>En SQL Editor de Supabase, ejecuta el contenido del archivo <code>supabase-setup.sql</code></p></div>
+            <div class="setup-step"><h3>3. Copia tus credenciales</h3><p>En Settings > API:</p><input type="text" id="setupUrl" class="setup-input" placeholder="Project URL: https://xxxxx.supabase.co"><input type="text" id="setupKey" class="setup-input" placeholder="anon key: eyJhbGciOiJIUzI1NiIs..."></div>
+            <button class="btn-setup" onclick="saveSupabaseConfig()">Conectar con Supabase</button>
+            <button class="btn-skip" onclick="skipSetup()">Usar modo local (sin sincronización)</button>
+        </div>
+    </div>
+    <div id="mainApp" style="display: none;">
+        <header class="header">
+            <div class="logo-container"><div><div class="logo-text">SNARO</div><div class="logo-subtitle">Pipeline</div></div></div>
+            <div class="header-actions"><button class="btn-header" onclick="exportData()">Exportar</button><button class="btn-header" onclick="showSettings()">Config</button></div>
+        </header>
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Vistas</div>
+                    <a class="sidebar-link active" onclick="showView('prospects')" id="link-prospects">Por contactar <span class="count" id="sidebarProspectCount">0</span></a>
+                    <a class="sidebar-link" onclick="showView('pipeline')" id="link-pipeline">Pipeline <span class="count" id="sidebarPipelineCount">0</span></a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Resumen</div>
+                    <div style="font-size: 12px; color: #666; line-height: 1.8;">
+                        <div>Contactado: <span id="statContactado">0</span></div>
+                        <div>Reunión: <span id="statReunion">0</span></div>
+                        <div>Piloto: <span id="statPiloto">0</span></div>
+                        <div>Cliente: <span id="statCliente">0</span></div>
+                    </div>
+                </div>
+            </aside>
+            <main class="content active" id="view-prospects">
+                <div class="page-header"><h1 class="page-title">Por contactar <span id="prospectCount">0</span></h1></div>
+                <div class="filters">
+                    <input type="text" class="filter-input" id="searchProspects" placeholder="Buscar empresa, sector..." oninput="filterProspects()">
+                    <select class="filter-select" id="filterSector" onchange="filterProspects()"><option value="">Todos los sectores</option></select>
+                    <select class="filter-select" id="filterLocation" onchange="filterProspects()"><option value="">Todas las ubicaciones</option></select>
+                    <select class="filter-select" id="filterPriority" onchange="filterProspects()"><option value="">Todas las prioridades</option><option value="high">Alta</option><option value="medium">Media</option><option value="low">Baja</option></select>
+                </div>
+                <div class="prospect-list" id="prospectList"><div class="loading"><div class="spinner"></div>Cargando empresas...</div></div>
+            </main>
+            <main class="content" id="view-pipeline">
+                <div class="page-header"><h1 class="page-title">Pipeline comercial</h1></div>
+                <div class="pipeline-container">
+                    <div class="pipeline-column"><div class="column-header"><span class="column-title">Contactado</span><span class="column-count" id="count-contactado">0</span></div><div class="column-cards" id="cards-contactado"></div></div>
+                    <div class="pipeline-column"><div class="column-header"><span class="column-title">Reunión</span><span class="column-count" id="count-reunion">0</span></div><div class="column-cards" id="cards-reunion"></div></div>
+                    <div class="pipeline-column"><div class="column-header"><span class="column-title">Piloto</span><span class="column-count" id="count-piloto">0</span></div><div class="column-cards" id="cards-piloto"></div></div>
+                    <div class="pipeline-column"><div class="column-header"><span class="column-title">Cliente</span><span class="column-count" id="count-cliente">0</span></div><div class="column-cards" id="cards-cliente"></div></div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2 class="modal-title" id="modalTitle">Empresa</h2><button class="modal-close" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+    <div class="notification" id="notification"></div>
+    <script src="empresas-data.js"></script>
+    <script src="pipeline-app.js"></script>
+</body>
+</html>
